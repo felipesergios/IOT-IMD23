@@ -30,6 +30,9 @@ int led = 2;
 #define HUMIDITY_INDEX 0
 #define TEMPERATURE_INDEX 1
 
+#define TOPIC_PUBLISH_TEMP "enrico_luigi/feeds/teste_envio_temp"
+#define TOPIC_PUBLISH_HUMIDITY "enrico_luigi/feeds/teste_conexao_esp32_mqttbroker"
+
 // array to store sensor data
 float data[2];
 
@@ -38,8 +41,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void readSensorDataAndPublish(){
   readSensorData();
-  mqttClient.publish("enrico_luigi/feeds/teste_conexao_esp32_mqttbroker", String(data[HUMIDITY_INDEX], 2).c_str(), true);
-  mqttClient.publish("enrico_luigi/feeds/teste_envio_temp", String(data[TEMPERATURE_INDEX], 2).c_str(), true);
+  mqttClient.publish(TOPIC_PUBLISH_HUMIDITY, String(data[HUMIDITY_INDEX], 2).c_str(), true);
+  mqttClient.publish(TOPIC_PUBLISH_TEMP, String(data[TEMPERATURE_INDEX], 2).c_str(), true);
   displayInMonitorSerialSensorData();
 }
 
